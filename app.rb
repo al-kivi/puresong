@@ -1,23 +1,29 @@
 require 'sinatra'
-#require 'sequel'
+require 'sequel'
 require 'sinatra/sequel'
+require 'sqlite3'
 require 'mandrill'
 
 database = Sequel.sqlite('development.sqlite')
 
 # Define database migrations. Rending migrations are run once at startup
 # ----------------------------------------------------------------------
-migration "create the songs table" do
-  database.create_table :songs do
-    primary_key	:id
-    varchar     :title
-    text				:lyrics
-    integer			:length
-    date				:released_on
-#    timestamp   :published_at, :null => false
 
-#    index :title, :unique => true
-  end
+begin
+	migration "create the songs table" do
+	  database.create_table :songs do
+	    primary_key	:id
+	    varchar     :title
+	    text				:lyrics
+	    integer			:length
+	    date				:released_on
+	#    timestamp   :published_at, :null => false
+	
+	#    index :title, :unique => true
+	  end
+	end
+rescue
+	puts "Table already exists"
 end
 
 # Basic functions

@@ -1,0 +1,5 @@
+<h2>Edit Song</h2>
+<form action="/songs/<%= @song.id %>" method="POST">
+	<input name="_method" type="hidden" value="PUT" />
+	<%= erb :song_form %>
+</form>

@@ -1,0 +1,9 @@
+<h2><%= @song.title %></h2>
+<p>Release Date: <%= @song.released_on.strftime("%e %B %Y") if @song.released_on %></p>
+<p>Length: <%= @song.length/60 %> minutes <%= @song.length%60 %> seconds</p>
+<pre><%= @song.lyrics %></pre>
+<br>
+
+<a href="/songs/<%= @song.id %>/edit"><button class="secondary-button pure-button">Edit</button></a>&nbsp&nbsp
+<a href="/songs/<%= @song.id %>/delete"><button class="secondary-button pure-button">Delete</button></a>&nbsp&nbsp
+<a href="/songs"><button class="secondary-button pure-button">Go back</button></a>

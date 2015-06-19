@@ -1,0 +1,11 @@
+<h2>Songs</h2>
+<% if @songs.any? %>
+	<ul id="songs">
+	<% @songs.each do |song| %>
+ 		<li><a href="/songs/<%= song.id %>"><%= song.title %></a></li>
+	<% end %></ul>
+<% else %>
+	<p>No songs have been created yet!</p>
+<% end %>
+<a href="/songs/new"><button class="secondary-button pure-button">New song</button></a>
+<br><br><br><br><br>

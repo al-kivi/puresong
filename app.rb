@@ -103,9 +103,7 @@ end
 
 post '/mailout' do
 
-	#m = Mandrill::API.new ENV["MANDRILL_API_KEY"] # accesses environment variable
-	#m = Mandrill::API.new "aZigkSOvZNE7p6muHoqCXQ"
-	m = Mandrill::API.new "5t9fVlvPlMDJK9dcQ696Ug"
+	m = Mandrill::API.new ENV["MANDRILL_API_KEY"] # accesses environment variable
 	
   message = {  
    :subject=> "Request for information from - " + params[:name],  
@@ -113,11 +111,11 @@ post '/mailout' do
    :text=>params[:comments],  
    :to=>[  
      { 
-       :email=> "akivi@ica.net"
+       :email=> ENV["MANDRILL_EMAIL"]  # accesses environment variable
      }  
    ],  
    :html=>params[:comments],  
-   :from_email=>"akivi@ica.net"  # this needs to match Mandrill setup
+   :from_email=> ENV["MANDRILL_EMAIL"]  # this needs to match Mandrill setup
   }  
   sending = m.messages.send message
 

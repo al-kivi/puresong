@@ -2,7 +2,8 @@ require 'sinatra'
 require 'sequel'
 require 'sinatra/sequel'
 require 'sqlite3'
-require 'mandrill'
+require 'gmail'
+#require 'mandrill' # this is an option to gmail
 
 database = Sequel.sqlite('development.sqlite')
 
@@ -98,24 +99,47 @@ get '/songs/:id/delete' do # notice non-standard method for deletion
   redirect to('/songs')
 end
 
-# Sample application to show mailout capabilities
+
+
+# Sample application to show mailout capabilities with Gmail
 # -------------------------------------------------------------------------
 
 post '/mailout' do
 
+	gmail = Gmail.connect("---------", "--------")
+
+	email = gmail.compose do
+		
+	end
+
+	email['to']				= "---------"
+	email['subject'] 	= "Request for information from - " + params[:name] + " - " + params[:email]
+	email['body']		 	= params[:comments]
+	
+	email.deliver! 
+	
+	gmail.logout
+end
+
+
+# Sample application to show mailout capabilities with Mandrill
+# -------------------------------------------------------------------------
+
+post '/mailout_option' do
+
 	m = Mandrill::API.new ENV["MANDRILL_API_KEY"] # accesses environment variable
 	
   message = {  
-   :subject=> "Request for information from - " + params[:name],  
+   :subject=> "Request for information from - " + params[:name],
    :from_name=> params[:name],  
    :text=>params[:comments],  
    :to=>[  
      { 
-       :email=> ENV["MANDRILL_EMAIL"]  # accesses environment variable
+       :email=> ENV["ADMIN_EMAIL"]  # accesses environment variable
      }  
    ],  
    :html=>params[:comments],  
-   :from_email=> ENV["MANDRILL_EMAIL"]  # this needs to match Mandrill setup
+   :from_email=> ENV["ADMIN_EMAIL"]  # this needs to match Mandrill setup
   }  
   sending = m.messages.send message
 

@@ -3,7 +3,7 @@ require 'sequel'
 require 'sinatra/sequel'
 require 'sqlite3'
 require 'gmail'
-#require 'mandrill' # this is an option to gmail
+#require 'mandrill' # this is an alternative to gmail
 
 database = Sequel.sqlite('development.sqlite')
 
@@ -99,26 +99,29 @@ get '/songs/:id/delete' do # notice non-standard method for deletion
   redirect to('/songs')
 end
 
-
-
 # Sample application to show mailout capabilities with Gmail
+# This Google account has been adjusted for less security 
 # -------------------------------------------------------------------------
 
 post '/mailout' do
+	@user  = ENV["GMAIL_USER"]   # access info stored in environment variables
+	@pwd   = ENV["GMAIL_PWD"]
 
-	gmail = Gmail.connect("---------", "--------")
+	gmail = Gmail.connect(@user, @pwd)
 
 	email = gmail.compose do
 		
 	end
-
-	email['to']				= "---------"
+  
+	email['to']				= "admin@xxx.net"  # enter your administrators email here
 	email['subject'] 	= "Request for information from - " + params[:name] + " - " + params[:email]
 	email['body']		 	= params[:comments]
 	
 	email.deliver! 
 	
 	gmail.logout
+	
+	redirect to('/')
 end
 
 

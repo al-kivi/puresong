@@ -129,7 +129,7 @@ end
 
 post '/mailout_option' do
 
-	m = Mandrill::API.new ENV["MANDRILL_API_KEY"] # accesses environment variable
+  m = Mandrill::API.new ENV["MANDRILL_API_KEY"] # accesses environment variable
 	
   message = {  
    :subject=> "Request for information from - " + params[:name],

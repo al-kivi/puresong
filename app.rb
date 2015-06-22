@@ -11,27 +11,27 @@ database = Sequel.sqlite('development.sqlite')
 # ----------------------------------------------------------------------
 
 begin
-	migration "create the songs table" do
-	  database.create_table :songs do
-	    primary_key	:id
-	    varchar     :title
-	    text				:lyrics
-	    integer			:length
-	    date				:released_on
-	#    timestamp   :published_at, :null => false
-	
-	#    index :title, :unique => true
-	  end
-	end
+  migration "create the songs table" do
+    database.create_table :songs do
+      primary_key	:id
+      varchar     :title
+      text				:lyrics
+      integer			:length
+      date				:released_on
+    #    timestamp   :published_at, :null => false
+    
+    #    index :title, :unique => true
+    end
+  end
 rescue
-	puts "Table already exists"
+  puts "Table already exists"
 end
 
 # Basic functions
 # -------------------------------------------------------------
 
 get '/' do
-	@title = "A Poplite sample website"
+  @title = "A Poplite sample website"
   erb :home
 end
 
@@ -41,10 +41,10 @@ get '/about' do
 end
 
 get '/contact' do
-	@title = "Online information request form"
-	@name = ""
-	@email = ""
-	@comments = ""
+  @title = "Online information request form"
+  @name = ""
+  @email = ""
+  @comments = ""
   erb :contact
 end
 
@@ -104,23 +104,23 @@ end
 # -------------------------------------------------------------------------
 
 post '/mailout' do
-	@user = ENV["GMAIL_USER"]   # access info stored in environment variables
-	@pwd = ENV["GMAIL_PWD"]
-
-	gmail = Gmail.connect(@user, @pwd)
-
-	email = gmail.compose do	
-	end
+  @user = ENV["GMAIL_USER"]   # access info stored in environment variables
+  @pwd = ENV["GMAIL_PWD"]
   
-	email['to'] = "admin@xxx.net"  # enter your administrators email here
-	email['subject'] = "Request for information from - " + params[:name] + " - " + params[:email]
-	email['body'] = params[:comments]
-	
-	email.deliver! 
-	
-	gmail.logout
-	
-	redirect to('/')
+  gmail = Gmail.connect(@user, @pwd)
+  
+  email = gmail.compose do	
+  end
+  
+  email['to'] = "admin@xxx.net"  # enter your administrators email here
+  email['subject'] = "Request for information from - " + params[:name] + " - " + params[:email]
+  email['body'] = params[:comments]
+  
+  email.deliver! 
+  
+  gmail.logout
+  
+  redirect to('/')
 end
 
 
@@ -145,5 +145,5 @@ post '/mailout_option' do
   }  
   sending = m.messages.send message
 
-	redirect to('/')
+  redirect to('/')
 end

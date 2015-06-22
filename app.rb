@@ -104,18 +104,17 @@ end
 # -------------------------------------------------------------------------
 
 post '/mailout' do
-	@user  = ENV["GMAIL_USER"]   # access info stored in environment variables
-	@pwd   = ENV["GMAIL_PWD"]
+	@user = ENV["GMAIL_USER"]   # access info stored in environment variables
+	@pwd = ENV["GMAIL_PWD"]
 
 	gmail = Gmail.connect(@user, @pwd)
 
-	email = gmail.compose do
-		
+	email = gmail.compose do	
 	end
   
-	email['to']				= "admin@xxx.net"  # enter your administrators email here
-	email['subject'] 	= "Request for information from - " + params[:name] + " - " + params[:email]
-	email['body']		 	= params[:comments]
+	email['to'] = "admin@xxx.net"  # enter your administrators email here
+	email['subject'] = "Request for information from - " + params[:name] + " - " + params[:email]
+	email['body'] = params[:comments]
 	
 	email.deliver! 
 	

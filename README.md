@@ -32,14 +32,14 @@ The Purelite mini-stack includes the following:
 * One page application built with Sinatra and ERB
 * Sqlite3 with Sequel
 * Pure.css javascripts
-* Capture of visitor infomation and emailing with Mandrill
+* Capture of visitor information and emailing with Gmail or Mandrill
 
 ## Features
 The features shown in the application include:
 
 * Responsive screen using Pure.css capabilities
 * Pure.css functions include: top and side menus, grid structures, headers and footers
-* A webpage that demonstrates a small SQLlite application used to demonstrate menu and button behaviour 
+* A webpage that demonstrates a small SQLite application used to demonstrate menu and button behaviour 
 * A webpage that demonstrates a screen to capture contact information from a visitor. This information is send to the website administrator using the Mandrill email application.
 * This project is designed to show the capabilities of Pure.css interacting with a small Sinatra SQLite application. It is not intended for production use.
 

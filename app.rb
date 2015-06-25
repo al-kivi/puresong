@@ -32,12 +32,12 @@ end
 
 get '/' do
   @title = "A Poplite sample website"
-  erb :home
+  erb :home, :locals => {:active=>["pure-menu-selected","","",""]}
 end
 
 get '/about' do
   @title = "More innovation from Vizica Consulting"
-  erb :about
+  erb :about, :locals => {:active=>["","","pure-menu-selected",""]}
 end
 
 get '/contact' do
@@ -45,7 +45,7 @@ get '/contact' do
   @name = ""
   @email = ""
   @comments = ""
-  erb :contact
+  erb :contact, :locals => {:active=>["","","","pure-menu-selected"]}
 end
 
 not_found do
@@ -65,22 +65,22 @@ end
 
 get '/songs' do
   @songs = Song.all
-  erb :songs
+  erb :songs, :locals => {:active=>["","pure-menu-selected","",""]}
 end
 
 get '/songs/new' do
   @song = Song.new
-  erb :new_song
+  erb :new_song, :locals => {:active=>["","pure-menu-selected","",""]}
 end
 
 get '/songs/:id' do
   @song = Song[(params[:id])]
-  erb :show_song
+  erb :show_song, :locals => {:active=>["","pure-menu-selected","",""]}
 end
 
 get '/songs/:id/edit' do
   @song = Song[params[:id]]
-  erb :edit_song
+  erb :edit_song, :locals => {:active=>["","pure-menu-selected","",""]}
 end
 
 post '/songs' do
